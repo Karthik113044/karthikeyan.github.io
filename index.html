@@ -1,51 +1,411 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Business Card</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .card {
-      background: #fff;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      text-align: center;
-      max-width: 300px;
-    }
-    .card h2 {
-      margin-bottom: 10px;
-    }
-    .card p {
-      margin: 5px 0;
-    }
-    .social a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: #555;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karthikeyan T - Business Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #7c3aed 50%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card-container {
+            position: relative;
+        }
+
+        .card-glow {
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(45deg, #7c3aed, #ec4899);
+            border-radius: 20px;
+            filter: blur(8px);
+            opacity: 0.75;
+            animation: pulse 2s infinite;
+        }
+
+        .business-card {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            padding: 32px;
+            max-width: 400px;
+            width: 100%;
+            transform: scale(1);
+            transition: all 0.3s ease;
+        }
+
+        .business-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.35);
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .profile-photo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .profile-photo {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid transparent;
+            background: linear-gradient(45deg, #7c3aed, #3b82f6);
+            padding: 4px;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .status-indicator {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 24px;
+            height: 24px;
+            background: #10b981;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: #34d399;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        .name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7c3aed;
+            margin-bottom: 8px;
+        }
+
+        .company-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .company-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .tagline {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .contact-info {
+            margin: 24px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-item:hover {
+            background: linear-gradient(45deg, #f3e8ff, #dbeafe);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .phone-icon {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .email-icon {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .location-icon {
+            background: #f3e8ff;
+            color: #7c3aed;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1);
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 2px;
+        }
+
+        .contact-value {
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .description {
+            background: linear-gradient(45deg, #f3e8ff, #dbeafe);
+            padding: 16px;
+            border-radius: 12px;
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .description-text {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #7c3aed, #3b82f6);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.4);
+        }
+
+        .floating-elements {
+            position: absolute;
+        }
+
+        .floating-dot-1 {
+            top: -16px;
+            right: -16px;
+            width: 32px;
+            height: 32px;
+            background: #fbbf24;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: bounce 2s infinite;
+        }
+
+        .floating-dot-2 {
+            bottom: -16px;
+            left: -16px;
+            width: 24px;
+            height: 24px;
+            background: #ec4899;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: bounce 2s infinite 0.15s;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.75; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translate3d(0, 0, 0);
+            }
+            40%, 43% {
+                transform: translate3d(0, -8px, 0);
+            }
+            70% {
+                transform: translate3d(0, -4px, 0);
+            }
+            90% {
+                transform: translate3d(0, -2px, 0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .business-card {
+                padding: 24px;
+                margin: 16px;
+            }
+            
+            .name {
+                font-size: 24px;
+            }
+            
+            .company-name {
+                font-size: 16px;
+            }
+        }
+
+        /* SVG Icons */
+        .icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+    </style>
 </head>
 <body>
+    <div class="card-container">
+        <!-- Background glow effect -->
+        <div class="card-glow"></div>
+        
+        <!-- Main business card -->
+        <div class="business-card">
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <div class="profile-photo-container">
+                    <div class="profile-photo">
+                        <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400" 
+                             alt="Karthikeyan T" />
+                    </div>
+                    <div class="status-indicator">
+                        <div class="status-dot"></div>
+                    </div>
+                </div>
+                
+                <h1 class="name">Karthikeyan T</h1>
+                
+                <div class="company-info">
+                    <svg class="company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 21h18"/>
+                        <path d="M5 21V7l8-4v18"/>
+                        <path d="M19 21V11l-6-4"/>
+                    </svg>
+                    <span class="company-name">SkyRocketLabs</span>
+                </div>
+                
+                <p class="tagline">Innovating the Future</p>
+            </div>
 
-<div class="card">
-  <h2>Your Name</h2>
-  <p>Founder at Your Business</p>
-  <p>📞 +91-9876543210</p>
-  <p>📧 yourmail@gmail.com</p>
-  <p>🌐 <a href="https://yourwebsite.com" target="_blank">yourwebsite.com</a></p>
-  <div class="social">
-    <a href="https://linkedin.com/in/yourprofile">LinkedIn</a>
-    <a href="https://instagram.com/yourprofile">Instagram</a>
-  </div>
-</div>
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <!-- Phone -->
+                <a href="tel:+918310244990" class="contact-item">
+                    <div class="contact-icon phone-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">+91 8310244990</div>
+                    </div>
+                </a>
 
+                <!-- Email -->
+                <a href="mailto:karthi.thiru304@gmail.com" class="contact-item">
+                    <div class="contact-icon email-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">karthi.thiru304@gmail.com</div>
+                    </div>
+                </a>
+
+                <!-- Location -->
+                <div class="contact-item">
+                    <div class="contact-icon location-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Location</div>
+                        <div class="contact-value">India</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Description -->
+            <div class="description">
+                <p class="description-text">
+                    Building innovative solutions and pushing the boundaries of technology
+                </p>
+            </div>
+
+            <!-- Call to Action -->
+            <div style="text-align: center;">
+                <div class="cta-button">
+                    <span>Let's Connect</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating decorative elements -->
+        <div class="floating-elements">
+            <div class="floating-dot-1"></div>
+            <div class="floating-dot-2"></div>
+        </div>
+    </div>
 </body>
 </html>
